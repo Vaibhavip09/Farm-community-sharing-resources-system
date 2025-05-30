@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - FarmingShare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body, html {
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                  url('reg-bck.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #344e41;
+    }
+    .register-container {
+      background: white;
+      padding: 30px 30px 35px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .register-container h2 {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 24px;
+      color: #2f4f2f;
+    }
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: #506753;
+      text-align: left;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1.5px solid #a2b29f;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      color: #3c4a3b;
+      background-color: #f9faf9;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+      border-color: #6b8e23;
+      outline: none;
+      background: #f0f5e9;
+      box-shadow: 0 0 6px #9dbd5e80;
+    }
+    button {
+      width: 100%;
+      padding: 12px 0;
+      background: linear-gradient(to right, #6b8e23, #98c44a);
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 6px 12px #4a6621cc;
+    }
+    button:hover {
+      background: linear-gradient(to right, #557a1f, #7ea63b);
+    }
+    .login-link {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #6b8e23;
+    }
+    .login-link a {
+      color: #3e5518;
+      text-decoration: none;
+      font-weight: 600;
+      transition: text-decoration 0.3s ease;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Create Your Account</h2>
+    <form>
+      <label for="username">Username</label>
+      <input id="username" type="text" placeholder="Your username" required autocomplete="off" />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="Your email address" required autocomplete="off" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Password" required autocomplete="off" />
+
+      <label for="confirm-password">Confirm Password</label>
+      <input id="confirm-password" type="password" placeholder="Confirm password" required autocomplete="off" />
+
+      <button type="submit">Register</button>
+
+      <div class="login-link">
+        Already have an account? <a href="login.html">Login here</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="register.js"></script>
+
+</body>
+</html>

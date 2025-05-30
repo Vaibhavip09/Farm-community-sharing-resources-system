@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - FarmingShare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: url('farm2.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .sidebar {
+      width: 260px;
+      height: 100vh;
+      background: linear-gradient(135deg, #7f9280, #81c784);
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      color: #fff;
+      z-index: 10;
+    }
+
+    .sidebar h2 {
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      padding: 10px 15px;
+      text-decoration: none !important;
+      color: #fff;
+      border-radius: 10px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .main-content {
+      margin-left: 270px;
+      padding: 40px;
+      min-height: 100vh;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h1 {
+      font-weight: 800;
+      color: #2e7d32;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .hero-img {
+      flex: 1;
+    }
+
+    .hero-img img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .cards {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .card-box {
+      flex: 1 1 250px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+      backdrop-filter: blur(6px);
+    }
+
+    .card-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-box h4 {
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    .card-box p {
+      color: #333;
+    }
+
+    .btn-custom {
+      background: linear-gradient(to right, #66bb6a, #43a047);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+      background: linear-gradient(to right, #43a047, #2e7d32);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>🌾 FarmingShare</h2>
+    <a href="Home.html">🏠 Home</a>
+    <a href="add-resource.html">➕ Add Resource</a>
+    <a href="View Resourses.html">📋 View Resources</a>
+    <a href="Borrow Requests.html">🔄 Borrow Requests</a>
+    <a href="Profile.html">👤 Profile</a>
+    <a href="logout.html">🚪 Logout</a>
+  </div>
+
+  <div class="main-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="hero-text">
+          <h1>Welcome to FarmingShare 🌱</h1>
+          <p>“Together, we grow. Together, we share. Together, we thrive.”<br>Share tools, seeds, and compost with fellow farmers.</p>
+          <button class="btn btn-custom mt-3">Start Sharing</button>
+        </div>
+        <div class="hero-img">
+          <img src="./index.png" alt="Farming Illustration">
+        </div>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="cards mt-5">
+        <div class="card-box">
+          <h4>🌾 My Resources</h4>
+          <p>View and manage your shared tools, seeds, and other resources.</p>
+        </div>
+        <div class="card-box">
+          <h4>🔄 Borrow Requests</h4>
+          <p>Track requests from others and manage what you've lent.</p>
+        </div>
+        <div class="card-box">
+          <h4>📈 My Activity</h4>
+          <p>Check your contributions, community impact, and borrowing history.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

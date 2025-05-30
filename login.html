@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - FarmingShare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #6d8641, #7f977b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4a4a4a;
+      position: relative;
+      overflow: hidden;
+    }
+   
+    body::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: url('https://i.ibb.co/0Jmshvb/leaves-pattern.png') repeat;
+      opacity: 0.1;
+      animation: floatLeaves 60s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes floatLeaves {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    .login-box {
+      position: relative;
+      background: #fff;
+      padding: 45px 50px 50px;
+      border-radius: 20px;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.15);
+      width: 380px;
+      text-align: center;
+      z-index: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .login-box:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 40px 60px rgba(0,0,0,0.2);
+    }
+    .login-box h2 {
+      margin-bottom: 32px;
+      font-weight: 700;
+      font-size: 32px;
+      color: #2a4d14;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px #b5d09d;
+    }
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4b6b35;
+      font-size: 1rem;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 16px 18px;
+      border: 2.5px solid #d4d4d4;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      color: #577d52;
+      margin-bottom: 26px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 1px 1px 3px #e6f0dc;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      outline: none;
+      border-color: #7caf7a;
+      box-shadow: 0 0 12px 2px rgba(124, 175, 122, 0.5);
+      background-color: #f7f9f4;
+    }
+    button {
+      width: 100%;
+      padding: 18px 0;
+      background: linear-gradient(135deg, #7caf7a, #557a3b);
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(85, 122, 59, 0.7);
+      transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #557a3b, #3e5c2b);
+      box-shadow: 0 12px 26px rgba(62, 92, 43, 0.85);
+      transform: scale(1.05);
+    }
+    .forgot-password {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: #68875d;
+    }
+    .forgot-password a {
+      color: #4b6b35;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .forgot-password a:hover {
+      text-decoration: underline;
+      color: #355e3b;
+    }
+
+    /* Responsive for small devices */
+    @media (max-width: 420px) {
+      .login-box {
+        width: 90vw;
+        padding: 30px 25px 35px;
+      }
+      .login-box h2 {
+        font-size: 26px;
+      }
+      input[type="text"], input[type="password"] {
+        font-size: 1rem;
+        padding: 14px 16px;
+      }
+      button {
+        font-size: 1.1rem;
+        padding: 14px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login to FarmingShare</h2>
+   <form>
+  <label for="username">Username</label>
+  <input id="username" type="text" placeholder="Enter your username" required autocomplete="off" />
+  
+  <label for="password">Password</label>
+  <input id="password" type="password" placeholder="Enter your password" required autocomplete="off" />
+  
+  <button type="submit">Login</button>
+  
+  <div class="register-link" style="margin-top: 18px; font-size: 0.95rem; color: #68875d;">
+    Don't have an account? 
+    <a href="register.html" style="color: #4b6b35; font-weight: 600; text-decoration: none; transition: color 0.3s ease;">
+      Register here
+    </a>
+  </div>
+</form>
+       
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>

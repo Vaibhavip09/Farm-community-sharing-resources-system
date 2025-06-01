@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Resource</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #e0f7fa;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #ccc;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid #66ffcc;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #00c853;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00b342;
+    }
+
+    select {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select option {
+  background-color: #fff; 
+  color: #1b1b1b; 
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="glass-card">
+    <h2>🌱 Add New Resource</h2>
+    <form id="resourceForm">
+      <div class="form-group">
+        <label for="name">Resource Name</label>
+        <input type="text" id="name" name="name" placeholder="e.g., Tractor" required />
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select id="type" name="type" required>
+          <option value="">--Select--</option>
+          <option value="equipment">Equipment</option>
+          <option value="seeds">Seeds</option>
+          <option value="fertilizer">Fertilizer</option>
+          <option value="labor">Labor</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity / Availability</label>
+        <input type="text" id="quantity" name="quantity" placeholder="e.g., 3 units or 5 workers" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" placeholder="Brief description..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn">➕ Add Resource</button>
+    </form>
+  </div>
+
+  <script src="add-resource.js"></script>
+</body>
+</html>

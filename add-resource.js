@@ -27,8 +27,9 @@ document.querySelector('form').addEventListener('submit', function (e) {
     .then(text => {
       if (text.includes("successfully")) {
         alert("✅ Resource added successfully!");
+         window.location.href = "View Resourses.html";
         document.querySelector('form').reset();
-        window.location.href = "View Resource.html";
+       
       } else {
         alert("⚠️ " + text);
       }

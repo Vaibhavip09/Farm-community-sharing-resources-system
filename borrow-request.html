@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrow Resource</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      max-width: 420px;
+      width: 100%;
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 15px;
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 5px;
+      font-size: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #fff;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 14px;
+      background: #00e4d0;
+      background: linear-gradient(to right, #00e4d0, #5983e8);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    ::placeholder {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glass-card">
+    <h2>📦 Borrow Resource</h2>
+    <form id="borrowForm">
+      <input type="hidden" id="resourceId" name="resourceId" />
+
+      <label>Your Name</label>
+      <input type="text" id="userName" name="userName" placeholder="Enter your name" required />
+
+      <label>Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="10-digit number" pattern="[0-9]{10}" required />
+
+      <label>Borrow Duration (days)</label>
+      <input type="number" id="duration" name="duration" min="1" placeholder="e.g. 7" required />
+
+      <label>Pickup Date</label>
+      <input type="date" id="pickupDate" name="pickupDate" required />
+
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const resourceId = urlParams.get('resourceId');
+    document.getElementById('resourceId').value = resourceId;
+
+    document.getElementById('borrowForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const requestData = {
+        resourceId: resourceId,
+        userName: document.getElementById('userName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        duration: document.getElementById('duration').value,
+        pickupDate: document.getElementById('pickupDate').value
+      };
+
+      fetch('http://localhost:8080/borrow/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      })
+      .then(res => {
+        if (res.ok) {
+          alert('✅ Borrow request submitted!');
+          window.location.href = 'view-resources.html';
+        } else {
+          alert('❌ Failed to submit request.');
+        }
+      })
+      .catch(() => alert('⚠️ Network error'));
+    });
+  </script>
+
+</body>
+</html>

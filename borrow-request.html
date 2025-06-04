@@ -9,7 +9,6 @@
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
@@ -112,10 +111,12 @@
   </div>
 
   <script>
+    
     const urlParams = new URLSearchParams(window.location.search);
     const resourceId = urlParams.get('resourceId');
     document.getElementById('resourceId').value = resourceId;
 
+   
     document.getElementById('borrowForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -126,6 +127,9 @@
         phone: document.getElementById('phone').value,
         duration: document.getElementById('duration').value,
         pickupDate: document.getElementById('pickupDate').value
+        pickupDate: document.getElementById('pickupDate').value,
+        status: "Pending",    // Default value
+        message: ""           
       };
 
       fetch('http://localhost:8080/borrow/request', {
@@ -139,6 +143,7 @@
         if (res.ok) {
           alert('✅ Borrow request submitted!');
           window.location.href = 'view-resources.html';
+          window.location.href = "borrow-status.html";
         } else {
           alert('❌ Failed to submit request.');
         }

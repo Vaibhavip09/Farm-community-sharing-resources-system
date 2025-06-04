@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Borrow Request Status</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #8bc6ec, #9599e2);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    #statusCard {
+      background: #fff;
+      padding: 24px 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .field {
+      margin: 12px 0;
+    }
+
+    .field label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .field span {
+      color: #2c3e50;
+    }
+
+    #noStatus {
+      color: red;
+      font-weight: bold;
+    }
+
+    #backLink {
+      margin-top: 24px;
+      text-decoration: none;
+      color: #004aad;
+      font-weight: bold;
+    }
+
+    #usernameInput {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 250px;
+      margin-right: 8px;
+    }
+
+    #checkBtn {
+      padding: 8px 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Borrow Request Status</h2>
+
+  <div>
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <button id="checkBtn">Check Status</button>
+  </div>
+
+  <div id="statusCard" style="display: none;"></div>
+  <div id="noStatus" style="margin-top: 20px;"></div>
+
+  <a id="backLink" href="Home.html">← Back to Home</a>
+
+  <script>
+    document.getElementById("checkBtn").addEventListener("click", async () => {
+      const username = document.getElementById("usernameInput").value.trim();
+      const statusCard = document.getElementById("statusCard");
+      const noStatus = document.getElementById("noStatus");
+
+      statusCard.style.display = "none";
+      noStatus.textContent = "";
+
+      if (!username) {
+        noStatus.textContent = "Please enter a username.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:8080/borrow/status/user?username=${encodeURIComponent(username)}`);
+        
+        if (response.ok) {
+          const data = await response.json();
+
+          if (data.length === 0) {
+            noStatus.textContent = "No borrow request found for your account.";
+            return;
+          }
+
+          const latest = data[data.length - 1]; // Show latest request
+
+          statusCard.innerHTML = `
+            <div class="field"><label>Your Name:</label><span>${latest.userName}</span></div>
+            <div class="field"><label>Email:</label><span>${latest.email}</span></div>
+            <div class="field"><label>Phone Number:</label><span>${latest.phone}</span></div>
+            <div class="field"><label>Duration:</label><span>${latest.duration} days</span></div>
+            <div class="field"><label>Pickup Date:</label><span>${latest.pickupDate}</span></div>
+            <div class="field"><label>Status:</label><span>${latest.status || 'Pending'}</span></div>
+          `;
+          statusCard.style.display = "block";
+        } else {
+          noStatus.textContent = "Error fetching status.";
+        }
+      } catch (err) {
+        noStatus.textContent = "Network error. Please try again later.";
+      }
+    });
+  </script>
+
+</body>
+</html>

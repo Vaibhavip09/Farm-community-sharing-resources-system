@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farming Community Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1600250398984-8d56d648b1ed') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar h2 {
+      color: #f8f8f8;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 12px 0;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .sidebar a:hover {
+      color: #90ee90;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 15px;
+      padding: 20px;
+      width: calc(50% - 20px);
+      min-width: 280px;
+      color: #f0f0f0;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #90ee90;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #388e3c;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+      }
+      .card {
+        width: 100%;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+
+.sidebar a:hover {
+  color: #90ee90;
+  transform: scale(1.05);
+}
+
+
+  </style>
+</head>
+<body>
+
+<div class="overlay">
+
+  <!-- Admin Sidebar -->
+  <div class="sidebar" id="adminSidebar" style="display: none;">
+  <h2 style="background: linear-gradient(to right, #4CAF50, #2e7d32); padding: 10px; border-radius: 8px; text-align: center;">
+    🔐 Admin Panel
+  </h2>
+  
+  <a href="/admin/edit-community" style="display: flex; align-items: center;">
+    📝 <span style="margin-left: 10px;">Edit Community Info</span>
+  </a>
+
+  <a href="/admin/manage-resources" style="display: flex; align-items: center;">
+    ⚙️ <span style="margin-left: 10px;">Manage Resources</span>
+  </a>
+
+  <a href="/admin/members" style="display: flex; align-items: center;">
+    ✅ <span style="margin-left: 10px;">Approve Members</span>
+  </a>
+
+  <a href="/admin/stats" style="display: flex; align-items: center;">
+    📊 <span style="margin-left: 10px;">View Statistics</span>
+  </a>
+</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="card">
+      <h3>📍 Location</h3>
+      <p>Village Lonere, Tal. Mangaon, Dist. Raigad, Maharashtra</p>
+    </div>
+
+    <div class="card">
+      <h3>🧑‍🌾 Members</h3>
+      <p>34 active members</p>
+      <p>7 new join requests</p>
+    </div>
+
+    <div class="card">
+      <h3>🌱 Mission</h3>
+      <p>To promote collaboration, eco-farming, and rural development through shared resources and community farming practices.</p>
+    </div>
+
+    <div class="card">
+      <h3>🛠️ Shared Resources</h3>
+      <p>- Tractors<br>- Fertilizers<br>- Water Pumps<br>- Storage Units</p>
+    </div>
+
+    <div class="card">
+      <h3>📅 Recent Activities</h3>
+      <p>- Organic Seed Drive (May 2025)<br>- Monsoon Tractor Rental Service (June 2025)</p>
+    </div>
+
+    <div class="card">
+      <h3>🤝 Become a Member</h3>
+      <p>Join our farming network to access tools, knowledge, and community support.</p>
+      <a href="/join-us" class="btn">Join Now</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Replace this with your actual backend role check
+  const userRole = "admin"; // simulate login
+
+  if (userRole === "admin") {
+    document.getElementById("adminSidebar").style.display = "block";
+  }
+</script>
+
+
+<a href="Admin-Login.html" 
+   style="position: fixed; bottom: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 10px 15px; 
+          border-radius: 50px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-decoration: none; z-index: 1000;">
+  Admin Login
+</a>
+
+
+
+</body>
+</html>

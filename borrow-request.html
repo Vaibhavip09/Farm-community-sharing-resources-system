@@ -126,7 +126,6 @@
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
         duration: document.getElementById('duration').value,
-        pickupDate: document.getElementById('pickupDate').value
         pickupDate: document.getElementById('pickupDate').value,
         status: "Pending",    // Default value
         message: ""           
@@ -142,7 +141,6 @@
       .then(res => {
         if (res.ok) {
           alert('✅ Borrow request submitted!');
-          window.location.href = 'view-resources.html';
           window.location.href = "borrow-status.html";
         } else {
           alert('❌ Failed to submit request.');

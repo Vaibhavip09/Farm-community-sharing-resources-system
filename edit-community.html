@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Community Info</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #1d976c, #93f9b9);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #ffffffcc;
+      padding: 30px 40px;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+      color: #2c3e50;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      font-size: 15px;
+    }
+
+    .save-btn {
+      background-color: #28a745;
+    }
+
+    .save-btn:hover {
+      background-color: #218838;
+    }
+
+    .logout-btn {
+      background-color: #e74c3c;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📝 Edit Community Info</h2>
+
+    <form id="editCommunityForm">
+      <label for="location">📍 Location</label>
+      <input type="text" id="location" value="Village Lonere, Tal. Mangaon, Dist. Raigad, Maharashtra" />
+
+      <label for="members">🧑‍🌾 Members</label>
+      <input type="text" id="members" value="34 active members" />
+
+      <label for="requests">Join Requests</label>
+      <input type="text" id="requests" value="7 new join requests" />
+
+      <label for="mission">🌱 Mission</label>
+      <textarea id="mission" rows="3">To promote collaboration, eco-farming, and rural development through shared resources and community farming practices.</textarea>
+
+      <label for="resources">🛠️ Shared Resources</label>
+      <textarea id="resources" rows="3">- Tractors\n- Fertilizers\n- Water Pumps\n- Storage Units</textarea>
+
+      <label for="activities">📅 Recent Activities</label>
+      <textarea id="activities" rows="3">- Organic Seed Drive (May 2025)\n- Monsoon Tractor Rental Service (June 2025)</textarea>
+
+      <label for="invite">🤝 Become a Member (Invite Text)</label>
+      <textarea id="invite" rows="2">Join our farming network to access tools, knowledge, and community support.</textarea>
+
+      <div class="button-group">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </form>
+  </div>
+
+ <script>
+  // ✅ Load existing data on page load
+  window.onload = function () {
+    fetch("http://localhost:8080/community/get")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("location").value = data.location;
+        document.getElementById("members").value = data.members;
+        document.getElementById("requests").value = data.requests;
+        document.getElementById("mission").value = data.mission;
+        document.getElementById("resources").value = data.resources;
+        document.getElementById("activities").value = data.activities;
+        document.getElementById("invite").value = data.invite;
+      })
+      .catch(error => {
+        console.error("Error fetching community info:", error);
+        alert("⚠️ Failed to load community info");
+      });
+  };
+
+  // ✅ Save updated data
+  document.getElementById('editCommunityForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const updatedData = {
+      id: 1, // important: tell backend which record to update
+      location: document.getElementById("location").value,
+      members: document.getElementById("members").value,
+      requests: document.getElementById("requests").value,
+      mission: document.getElementById("mission").value,
+      resources: document.getElementById("resources").value,
+      activities: document.getElementById("activities").value,
+      invite: document.getElementById("invite").value
+    };
+
+    fetch("http://localhost:8080/community/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updatedData)
+    })
+      .then(response => response.text())
+      .then(data => {
+        if (data === "Updated") {
+          alert("✅ Community info saved successfully!");
+           window.location.href = "profile.html";
+        } else {
+          alert("❌ Error saving community info.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("❌ Error saving community info.");
+      });
+  });
+
+  function logout() {
+    sessionStorage.clear();
+    window.location.href = "profile.html";
+  }
+</script>
+
+
+
+</body>
+</html>

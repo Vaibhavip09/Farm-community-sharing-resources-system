@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      background: linear-gradient(135deg, #1d2b64, #f8cdda);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sidebar {
+  width: 300px;
+background: linear-gradient(135deg, #1d2b64, #f8cdda);
+  color: white;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border-right: 4px solid #f8cdda; /* Soft pink to match the gradient end */
+  backdrop-filter: blur(8px);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+}
+
+
+    .sidebar h2 {
+      font-size: 26px;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(to right, #70fff5, #ff4297);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 14px 20px;
+      margin: 12px 0;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(10px);
+    }
+
+    .main {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      text-shadow: 1px 1px 4px #00000088;
+    }
+
+    .main h1 {
+      font-size: 36px;
+      text-align: center;
+      max-width: 600px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 4px solid #ffcc70;
+      }
+      .main {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar" id="adminSidebar">
+    <h2>🔐 Admin Panel</h2>
+    <a href="edit-community.html">📝 Edit Community Info</a>
+    <a href="manage-resources.html">⚙️ Manage Resources</a>
+    <a href="/admin/members">✅ Approve Members</a>
+    <a href="/admin/stats">📊 View Statistics</a>
+  </div>
+
+  <div class="main">
+    <h1>Welcome Admin 👩‍🌾<br>Manage Your Community with Style!</h1>
+  </div>
+
+</body>
+</html>

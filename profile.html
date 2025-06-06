@@ -1,14 +1,13 @@
+<!-- 📁 Save as: community-profile.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Farming Community Profile</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -20,7 +19,6 @@
 
     .overlay {
       background-color: rgba(0, 0, 0, 0.5);
-      padding: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: row;
@@ -32,6 +30,7 @@
       backdrop-filter: blur(10px);
       padding: 20px;
       border-right: 1px solid rgba(255, 255, 255, 0.2);
+     display: none;
     }
 
     .sidebar h2 {
@@ -51,6 +50,7 @@
 
     .sidebar a:hover {
       color: #90ee90;
+      transform: scale(1.05);
     }
 
     .main-content {
@@ -101,107 +101,95 @@
     }
 
     @media (max-width: 768px) {
-      .main-content {
-        flex-direction: column;
-      }
-      .card {
-        width: 100%;
-      }
-      .sidebar {
-        display: none;
-      }
+      .main-content { flex-direction: column; }
+      .card { width: 100%; }
+      .sidebar { display: none !important; }
     }
-
-
-.sidebar a:hover {
-  color: #90ee90;
-  transform: scale(1.05);
-}
-
-
   </style>
 </head>
 <body>
 
 <div class="overlay">
 
-  <!-- Admin Sidebar -->
-  <div class="sidebar" id="adminSidebar" style="display: none;">
-  <h2 style="background: linear-gradient(to right, #4CAF50, #2e7d32); padding: 10px; border-radius: 8px; text-align: center;">
-    🔐 Admin Panel
-  </h2>
-  
-  <a href="/admin/edit-community" style="display: flex; align-items: center;">
-    📝 <span style="margin-left: 10px;">Edit Community Info</span>
-  </a>
+   
 
-  <a href="/admin/manage-resources" style="display: flex; align-items: center;">
-    ⚙️ <span style="margin-left: 10px;">Manage Resources</span>
-  </a>
-
-  <a href="/admin/members" style="display: flex; align-items: center;">
-    ✅ <span style="margin-left: 10px;">Approve Members</span>
-  </a>
-
-  <a href="/admin/stats" style="display: flex; align-items: center;">
-    📊 <span style="margin-left: 10px;">View Statistics</span>
-  </a>
-</div>
+  <!-- Sidebar for Admin -->
+  <div class="sidebar" id="adminSidebar">
+    <h2 style="background: linear-gradient(to right, #4CAF50, #2e7d32); padding: 10px; border-radius: 8px; text-align: center;">
+      🔐 Admin Panel
+    </h2>
+    <a href="edit-community.html">📝 Edit Community Info</a>
+    <a href="manage-resources.html">⚙️ Manage Resources</a>
+    <a href="/admin/members">✅ Approve Members</a>
+    <a href="/admin/stats">📊 View Statistics</a>
+  </div>
 
   <!-- Main Content -->
   <div class="main-content">
     <div class="card">
       <h3>📍 Location</h3>
-      <p>Village Lonere, Tal. Mangaon, Dist. Raigad, Maharashtra</p>
+      <p id="location">Loading...</p>
     </div>
 
     <div class="card">
       <h3>🧑‍🌾 Members</h3>
-      <p>34 active members</p>
-      <p>7 new join requests</p>
+      <p id="members">Loading...</p>
+      <p id="requests">Loading...</p>
     </div>
 
     <div class="card">
       <h3>🌱 Mission</h3>
-      <p>To promote collaboration, eco-farming, and rural development through shared resources and community farming practices.</p>
+      <p id="mission">Loading...</p>
     </div>
 
     <div class="card">
       <h3>🛠️ Shared Resources</h3>
-      <p>- Tractors<br>- Fertilizers<br>- Water Pumps<br>- Storage Units</p>
+      <p id="resources">Loading...</p>
     </div>
 
     <div class="card">
       <h3>📅 Recent Activities</h3>
-      <p>- Organic Seed Drive (May 2025)<br>- Monsoon Tractor Rental Service (June 2025)</p>
+      <p id="activities">Loading...</p>
     </div>
 
     <div class="card">
       <h3>🤝 Become a Member</h3>
-      <p>Join our farming network to access tools, knowledge, and community support.</p>
+      <p id="invite">Loading...</p>
       <a href="/join-us" class="btn">Join Now</a>
     </div>
   </div>
 
 </div>
 
+<!-- JavaScript for Admin Check + Data Fetch -->
+ 
 <script>
-  // Replace this with your actual backend role check
-  const userRole = "admin"; // simulate login
+  
 
-  if (userRole === "admin") {
-    document.getElementById("adminSidebar").style.display = "block";
-  }
+  // 2. Load community info dynamically
+  fetch("http://localhost:8080/community/get")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("location").textContent = data.location;
+      document.getElementById("members").textContent = data.members;
+      document.getElementById("requests").textContent = data.requests;
+      document.getElementById("mission").textContent = data.mission;
+      document.getElementById("resources").textContent = data.resources;
+      document.getElementById("activities").textContent = data.activities;
+      document.getElementById("invite").textContent = data.invite;
+    })
+    .catch(err => {
+      console.error("❌ Error loading community info:", err);
+      alert("Error loading data. Please try again later.");
+    });
 </script>
 
-
+<!-- Admin Login Button -->
 <a href="Admin-Login.html" 
    style="position: fixed; bottom: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 10px 15px; 
           border-radius: 50px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-decoration: none; z-index: 1000;">
   Admin Login
 </a>
-
-
 
 </body>
 </html>

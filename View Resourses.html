@@ -148,7 +148,9 @@
     <div id="grid" class="grid"></div>
     <div id="noDataMsg" class="no-data" style="display:none;">No resources found.</div>
   </div>
-
+<div style="text-align: center; margin-top: 10px;">
+  <a href="Home.html" id="backLink" style="color: white; font-weight: bold; text-decoration: none;">← Back to Home</a>
+</div>
   <script>
     fetch("http://localhost:8080/resources/all")
       .then(res => res.json())

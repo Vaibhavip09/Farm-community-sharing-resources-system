@@ -3,165 +3,205 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login - FarmingShare</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
     body, html {
       height: 100%;
-      background: linear-gradient(135deg, #6d8641, #7f977b);
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #4a4a4a;
-      position: relative;
+      color: #333;
       overflow: hidden;
+      position: relative;
     }
-   
-    body::before {
-      content: "";
+    /* Floating circles behind the card */
+    .circle {
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: url('https://i.ibb.co/0Jmshvb/leaves-pattern.png') repeat;
-      opacity: 0.1;
-      animation: floatLeaves 60s linear infinite;
-      pointer-events: none;
-      z-index: 0;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 10s ease-in-out infinite;
     }
-    @keyframes floatLeaves {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
+    .circle1 {
+      width: 200px; height: 200px;
+      background: #6b8de3;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    .circle2 {
+      width: 300px; height: 300px;
+      background: #f9a826;
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 5s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(15px); }
     }
 
-    .login-box {
+    .login-card {
       position: relative;
       background: #fff;
-      padding: 45px 50px 50px;
-      border-radius: 20px;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.15);
-      width: 380px;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      width: 360px;
       text-align: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
       z-index: 1;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
-    .login-box:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 40px 60px rgba(0,0,0,0.2);
+    .login-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      transform: scale(1.05);
     }
-    .login-box h2 {
-      margin-bottom: 32px;
+    .login-card h2 {
+      margin-bottom: 28px;
       font-weight: 700;
-      font-size: 32px;
-      color: #2a4d14;
+      font-size: 28px;
+      color: #2c3e50;
       letter-spacing: 1px;
-      text-shadow: 1px 1px 3px #b5d09d;
+      text-shadow: 1px 1px 4px rgba(100,100,100,0.1);
     }
     label {
       display: block;
       text-align: left;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #4b6b35;
-      font-size: 1rem;
+      color: #4a4a4a;
+      font-size: 14px;
+      position: relative;
+      padding-left: 28px;
+    }
+    /* Input container for icon + input */
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .input-group svg {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #7b8ca1;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      transition: fill 0.3s ease;
     }
     input[type="text"], input[type="password"] {
       width: 100%;
-      padding: 16px 18px;
-      border: 2.5px solid #d4d4d4;
-      border-radius: 14px;
-      font-size: 1.1rem;
-      color: #577d52;
-      margin-bottom: 26px;
+      padding: 12px 14px 12px 36px;
+      font-size: 15px;
+      border: 1.8px solid #d1d5db;
+      border-radius: 10px;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: inset 1px 1px 3px #e6f0dc;
+      box-shadow: inset 1px 1px 3px #f1f4f8;
+      color: #444;
+      background-color: #fafafa;
     }
     input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #6b8de3;
+      box-shadow: 0 0 10px 3px rgba(107, 141, 227, 0.4);
       outline: none;
-      border-color: #7caf7a;
-      box-shadow: 0 0 12px 2px rgba(124, 175, 122, 0.5);
-      background-color: #f7f9f4;
+      background-color: #f0f4ff;
+    }
+    input[type="text"]:focus + svg,
+    input[type="password"]:focus + svg {
+      fill: #4961d1;
     }
     button {
       width: 100%;
-      padding: 18px 0;
-      background: linear-gradient(135deg, #7caf7a, #557a3b);
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1.3rem;
+      padding: 14px 0;
+      background: linear-gradient(45deg, #6b8de3, #304ffe);
       color: white;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 8px 18px rgba(85, 122, 59, 0.7);
+      box-shadow: 0 6px 18px rgba(48, 79, 254, 0.7);
       transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
       letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    button::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      z-index: 1;
+    }
+    button:hover::before {
+      left: 150%;
     }
     button:hover {
-      background: linear-gradient(135deg, #557a3b, #3e5c2b);
-      box-shadow: 0 12px 26px rgba(62, 92, 43, 0.85);
-      transform: scale(1.05);
+      background: linear-gradient(45deg, #304ffe, #1e40ff);
+      box-shadow: 0 10px 26px rgba(30, 64, 255, 0.85);
+      transform: scale(1.06);
     }
-    .forgot-password {
-      margin-top: 18px;
-      font-size: 0.95rem;
-      color: #68875d;
+    .register-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
     }
-    .forgot-password a {
-      color: #4b6b35;
-      text-decoration: none;
+    .register-link a {
+      color: #6b8de3;
       font-weight: 600;
+      text-decoration: none;
       transition: color 0.3s ease;
     }
-    .forgot-password a:hover {
+    .register-link a:hover {
+      color: #304ffe;
       text-decoration: underline;
-      color: #355e3b;
     }
-
-    /* Responsive for small devices */
-    @media (max-width: 420px) {
-      .login-box {
+    @media (max-width: 400px) {
+      .login-card {
         width: 90vw;
-        padding: 30px 25px 35px;
-      }
-      .login-box h2 {
-        font-size: 26px;
-      }
-      input[type="text"], input[type="password"] {
-        font-size: 1rem;
-        padding: 14px 16px;
-      }
-      button {
-        font-size: 1.1rem;
-        padding: 14px 0;
+        padding: 30px 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
+
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+
+  <div class="login-card">
     <h2>Login to FarmingShare</h2>
-   <form>
-  <label for="username">Username</label>
-  <input id="username" type="text" placeholder="Enter your username" required autocomplete="off" />
-  
-  <label for="password">Password</label>
-  <input id="password" type="password" placeholder="Enter your password" required autocomplete="off" />
-  
-  <button type="submit">Login</button>
-  
-  <div class="register-link" style="margin-top: 18px; font-size: 0.95rem; color: #68875d;">
-    Don't have an account? 
-    <a href="register.html" style="color: #4b6b35; font-weight: 600; text-decoration: none; transition: color 0.3s ease;">
-      Register here
-    </a>
+    <form>
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="Enter your username" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.67 0 8 1.34 8 4v3H4v-3c0-2.66 5.33-4 8-4zm0-2a4 4 0 1 0-0.001-8.001A4 4 0 0 0 12 10z"/></svg>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Enter your password" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-8-4a3 3 0 0 1 6 0v4H10V7z"/></svg>
+      </div>
+
+      <button type="submit">Login</button>
+
+      <div class="register-link">
+        Don't have an account? <a href="register.html">Register here</a>
+      </div>
+    </form>
   </div>
-</form>
-       
-  </div>
-  <script src="login.js"></script>
+ <script src="login.js"></script>
+
 </body>
 </html>

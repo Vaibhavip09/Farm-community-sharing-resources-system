@@ -3,108 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <title>Register - FarmingShare</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
     body, html {
       height: 100%;
-      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                  url('reg-bck.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #344e41;
+      color: #333;
+      overflow: hidden;
+      position: relative;
     }
-    .register-container {
-      background: white;
-      padding: 30px 30px 35px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    /* Floating blurred circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 10s ease-in-out infinite;
+    }
+    .circle1 {
+      width: 200px; height: 200px;
+      background: #6b8de3;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    .circle2 {
+      width: 300px; height: 300px;
+      background: #f9a826;
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 5s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(15px); }
+    }
+    /* Glassmorphism form container */
+    .register-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 40px 35px;
+      width: 380px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      backdrop-filter: blur(12px);
       text-align: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      z-index: 1;
     }
-    .register-container h2 {
-      font-weight: 500;
-      font-size: 20px;
-      margin-bottom: 24px;
-      color: #2f4f2f;
+    .register-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      transform: scale(1.05);
+    }
+    .register-card h2 {
+      margin-bottom: 28px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #2c3e50;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 4px rgba(100,100,100,0.1);
     }
     label {
       display: block;
-      font-weight: 500;
-      font-size: 12px;
-      margin-bottom: 6px;
-      color: #506753;
       text-align: left;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4a4a4a;
+      font-size: 14px;
+      position: relative;
+      padding-left: 32px;
+    }
+    /* Input group container */
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .input-group svg {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #7b8ca1;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      transition: fill 0.3s ease;
     }
     input[type="text"], input[type="email"], input[type="password"] {
       width: 100%;
-      padding: 10px 12px;
-      font-size: 14px;
-      border: 1.5px solid #a2b29f;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      transition: border-color 0.2s ease, background 0.2s ease;
-      color: #3c4a3b;
-      background-color: #f9faf9;
+      padding: 12px 14px 12px 38px;
+      font-size: 15px;
+      border: 1.8px solid #d1d5db;
+      border-radius: 10px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 1px 1px 3px #f1f4f8;
+      color: #444;
+      background-color: #fafafa;
     }
     input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-      border-color: #6b8e23;
+      border-color: #6b8de3;
+      box-shadow: 0 0 10px 3px rgba(107, 141, 227, 0.4);
       outline: none;
-      background: #f0f5e9;
-      box-shadow: 0 0 6px #9dbd5e80;
+      background-color: #f0f4ff;
+    }
+    input[type="text"]:focus + svg,
+    input[type="email"]:focus + svg,
+    input[type="password"]:focus + svg {
+      fill: #4961d1;
     }
     button {
       width: 100%;
-      padding: 12px 0;
-      background: linear-gradient(to right, #6b8e23, #98c44a);
+      padding: 14px 0;
+      background: linear-gradient(45deg, #6b8de3, #304ffe);
       color: white;
-      font-weight: 600;
       font-size: 16px;
+      font-weight: 700;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.25s ease;
-      box-shadow: 0 6px 12px #4a6621cc;
+      box-shadow: 0 6px 18px rgba(48, 79, 254, 0.7);
+      transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    button::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      z-index: 1;
+    }
+    button:hover::before {
+      left: 150%;
     }
     button:hover {
-      background: linear-gradient(to right, #557a1f, #7ea63b);
+      background: linear-gradient(45deg, #304ffe, #1e40ff);
+      box-shadow: 0 10px 26px rgba(30, 64, 255, 0.85);
+      transform: scale(1.06);
     }
     .login-link {
-      margin-top: 14px;
-      font-size: 13px;
-      color: #6b8e23;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
     }
     .login-link a {
-      color: #3e5518;
-      text-decoration: none;
+      color: #6b8de3;
       font-weight: 600;
-      transition: text-decoration 0.3s ease;
+      text-decoration: none;
     }
     .login-link a:hover {
       text-decoration: underline;
     }
+    @media (max-width: 420px) {
+      .register-card {
+        width: 90vw;
+        padding: 30px 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="register-container">
-    <h2>Create Your Account</h2>
+
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+
+  <div class="register-card">
+    <h2>🌿 Create Your Account</h2>
     <form>
-      <label for="username">Username</label>
-      <input id="username" type="text" placeholder="Your username" required autocomplete="off" />
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="Your username" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.67 0 8 1.34 8 4v3H4v-3c0-2.66 5.33-4 8-4zm0-2a4 4 0 1 0-0.001-8.001A4 4 0 0 0 12 10z"/></svg>
+      </div>
 
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="Your email address" required autocomplete="off" />
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Your email address" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
 
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Password" required autocomplete="off" />
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-8-4a3 3 0 0 1 6 0v4H10V7z"/></svg>
+      </div>
 
-      <label for="confirm-password">Confirm Password</label>
-      <input id="confirm-password" type="password" placeholder="Confirm password" required autocomplete="off" />
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" type="password" placeholder="Confirm password" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-8-4a3 3 0 0 1 6 0v4H10V7z"/></svg>
+      </div>
 
       <button type="submit">Register</button>
 
@@ -113,8 +214,11 @@
       </div>
     </form>
   </div>
-
-  <script src="register.js"></script>
-
+    <script src="register.js"></script>
 </body>
 </html>
+
+
+
+
+ <!-- <script src="register.js"></script> -->

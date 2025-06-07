@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Manage Borrow Requests</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #8bc6ec, #9599e2);
+      padding: 40px;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 24px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    button {
+      padding: 6px 10px;
+      margin: 2px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .accept-btn {
+      background-color: #27ae60;
+    }
+    .accept-btn:hover {
+      background-color: #219150;
+    }
+    .decline-btn {
+      background-color: #e74c3c;
+    }
+    .decline-btn:hover {
+      background-color: #c0392b;
+    }
+    .edit-btn {
+      background-color: #f39c12;
+      color: #222;
+    }
+    .edit-btn:hover {
+      background-color: #d78c0c;
+    }
+    .delete-btn {
+      background-color: #7f8c8d;
+    }
+    .delete-btn:hover {
+      background-color: #636e70;
+    }
+    input[type="text"], input[type="email"], input[type="number"], input[type="date"], select {
+      width: 90%;
+      padding: 4px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    #backLink {
+      display: block;
+      max-width: 900px;
+      margin: 30px auto 0;
+      text-align: left;
+      color: #004aad;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    .save-btn {
+  background-color: #2ecc71; /* Green */
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.save-btn:hover {
+  background-color: #27ae60;
+}
+
+.cancel-btn {
+  background-color: #e74c3c; /* Red */
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.cancel-btn:hover {
+  background-color: #c0392b;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <h2>Admin - Manage Borrow Requests</h2>
+
+  <table id="requestsTable">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Duration (days)</th>
+        <th>Pickup Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data rows inserted here by JS -->
+    </tbody>
+  </table>
+
+  <a href="admin-dashboard.html" id="backLink">← Back to Dashboard</a>
+
+<script>
+  const apiBase = "http://localhost:8080/borrow"; // Adjust if needed
+  const tableBody = document.querySelector("#requestsTable tbody");
+
+  // Fetch all borrow requests and render table rows
+  async function loadRequests() {
+    try {
+      const response = await fetch(`${apiBase}/status`);
+      if (!response.ok) throw new Error("Failed to fetch borrow requests");
+      const requests = await response.json();
+      renderTable(requests);
+    } catch (error) {
+      alert("Error loading borrow requests: " + error.message);
+    }
+  }
+
+  // Render table rows with data
+  function renderTable(requests) {
+    tableBody.innerHTML = "";
+    requests.forEach(req => {
+      const row = document.createElement("tr");
+      row.dataset.id = req.id;
+
+      row.innerHTML = `
+        <td class="userName">${escapeHTML(req.userName)}</td>
+        <td class="email">${escapeHTML(req.email)}</td>
+        <td class="phone">${escapeHTML(req.phone)}</td>
+        <td class="duration">${req.duration}</td>
+        <td class="pickupDate">${req.pickupDate}</td>
+        <td class="status">${escapeHTML(req.status || "Pending")}</td>
+        
+        <td>
+          <button class="accept-btn">Accept</button>
+          <button class="decline-btn">Decline</button>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Escape HTML helper to prevent XSS
+  function escapeHTML(text) {
+    if (!text) return "";
+    return text.replace(/[&<>"']/g, m => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[m]);
+  }
+
+  // Update request status (Accept/Decline)
+  async function updateStatus(id, status) {
+    try {
+      const res = await fetch(`${apiBase}/updateStatus/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status })
+      });
+      if (!res.ok) throw new Error("Failed to update status");
+      alert(`Request ${status}`);
+      loadRequests();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  // Delete borrow request
+  async function deleteRequest(id) {
+    if (!confirm("Are you sure you want to delete this request?")) return;
+    try {
+      const res = await fetch(`${apiBase}/delete/${id}`, {
+        method: "DELETE"
+      });
+      if (!res.ok) throw new Error("Failed to delete request");
+      alert("Request deleted");
+      loadRequests();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  // Edit mode toggle
+  function toggleEdit(row, enable) {
+    if (enable) {
+      // Convert cells to inputs
+      row.querySelector(".userName").innerHTML = `<input type="text" value="${escapeHTML(row.querySelector(".userName").textContent)}" />`;
+      row.querySelector(".email").innerHTML = `<input type="email" value="${escapeHTML(row.querySelector(".email").textContent)}" />`;
+      row.querySelector(".phone").innerHTML = `<input type="text" value="${escapeHTML(row.querySelector(".phone").textContent)}" />`;
+      row.querySelector(".duration").innerHTML = `<input type="number" min="1" value="${row.querySelector(".duration").textContent}" />`;
+      row.querySelector(".pickupDate").innerHTML = `<input type="date" value="${row.querySelector(".pickupDate").textContent}" />`;
+      row.querySelector(".status").innerHTML = `
+        <select>
+          <option value="Pending">Pending</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Declined">Declined</option>
+        </select>
+      `;
+      const statusSelect = row.querySelector(".status select");
+      statusSelect.value = row.querySelector(".status").textContent.trim();
+
+      const actionsCell = row.querySelector("td:last-child");
+      actionsCell.innerHTML = `
+        <button class="save-btn">Save</button>
+        <button class="cancel-btn">Cancel</button>
+      `;
+    } else {
+      loadRequests();
+    }
+  }
+
+  // Save edited request
+  async function saveEdit(row) {
+    const id = row.dataset.id;
+    const updatedRequest = {
+      userName: row.querySelector(".userName input").value.trim(),
+      email: row.querySelector(".email input").value.trim(),
+      phone: row.querySelector(".phone input").value.trim(),
+      duration: parseInt(row.querySelector(".duration input").value.trim()),
+      pickupDate: row.querySelector(".pickupDate input").value,
+      status: row.querySelector(".status select").value,
+    };
+
+    // Basic validation (add as needed)
+    if (!updatedRequest.userName || !updatedRequest.email) {
+      alert("User name and email are required.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${apiBase}/update/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedRequest)
+      });
+      if (!res.ok) throw new Error("Failed to update request");
+      alert("Request updated successfully");
+      loadRequests();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  // Event delegation for buttons inside table
+  tableBody.addEventListener("click", e => {
+    const row = e.target.closest("tr");
+    if (!row) return;
+
+    if (e.target.classList.contains("accept-btn")) {
+      updateStatus(row.dataset.id, "Accepted");
+    } else if (e.target.classList.contains("decline-btn")) {
+      updateStatus(row.dataset.id, "Declined");
+    } else if (e.target.classList.contains("delete-btn")) {
+      deleteRequest(row.dataset.id);
+    } else if (e.target.classList.contains("edit-btn")) {
+      toggleEdit(row, true);
+    } else if (e.target.classList.contains("cancel-btn")) {
+      toggleEdit(row, false);
+    } else if (e.target.classList.contains("save-btn")) {
+      saveEdit(row);
+    }
+  });
+
+  // Load data on page load
+  loadRequests();
+</script>
+
+</body>
+</html>

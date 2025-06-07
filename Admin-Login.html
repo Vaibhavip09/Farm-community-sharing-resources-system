@@ -82,29 +82,53 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('adminLoginForm');
-  loginForm.addEventListener('submit', function(e) {
+
+  if (!loginForm) {
+    console.error("Login form not found!");
+    return;
+  }
+
+  loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
     console.log("Login button clicked!");
 
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
 
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
+
     fetch('http://localhost:8080/admin/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ username, password })
     })
-    .then(res => res.text())
-    .then(text => {
-      alert(text);
-      if (text === "User login successful") {
-         window.location.href = "admin-dashboard.html";
-      }
-    })
-    .catch(() => alert("Login failed"));
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Login failed");
+        }
+        return res.text();
+      })
+      .then(text => {
+        alert(text);
+        if (text === "User login successful") {
+          // Optional: store role
+          sessionStorage.setItem("userRole", "admin");
+          window.location.href = "admin-dashboard.html";
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("❌ Invalid login. Please try again.");
+      });
   });
 });
 </script>
+
 </body>
 </html>
 

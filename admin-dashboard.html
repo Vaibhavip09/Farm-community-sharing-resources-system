@@ -16,9 +16,11 @@
     body {
       height: 100vh;
       display: flex;
+      flex-direction: column;
       background: linear-gradient(135deg, #1d2b64, #f8cdda);
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
+      color: white;
     }
 
     @keyframes gradientFlow {
@@ -27,91 +29,157 @@
       100% { background-position: 0% 50%; }
     }
 
-    .sidebar {
-  width: 300px;
-background: linear-gradient(135deg, #1d2b64, #f8cdda);
-  color: white;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  border-right: 4px solid #f8cdda; /* Soft pink to match the gradient end */
-  backdrop-filter: blur(8px);
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
-}
+    header {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f8cdda;
+      backdrop-filter: blur(6px);
+    }
 
-
-    .sidebar h2 {
-      font-size: 26px;
-      text-align: center;
-      margin-bottom: 40px;
+    header h1 {
+      font-size: 28px;
       background: linear-gradient(to right, #70fff5, #ff4297);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header .admin-tag {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffffcc;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid #f8cdda;
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+      background: linear-gradient(to right, #70fff5, #ff4297);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .sidebar a {
-      display: block;
       text-decoration: none;
-      color: #fff;
+      color: #ffffff;
       background-color: rgba(255, 255, 255, 0.1);
-      padding: 14px 20px;
-      margin: 12px 0;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      font-size: 16px;
-      letter-spacing: 0.5px;
+      padding: 12px 18px;
+      margin: 10px 0;
+      border-radius: 8px;
+      transition: 0.3s;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .sidebar a:hover {
       background-color: rgba(255, 255, 255, 0.3);
-      transform: translateX(10px);
+      transform: translateX(8px);
     }
 
     .main {
       flex: 1;
-      padding: 60px;
+      padding: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #ffffff;
+      text-align: center;
+    }
+
+    .main-content {
+      max-width: 600px;
       text-shadow: 1px 1px 4px #00000088;
     }
 
-    .main h1 {
+    .main h2 {
       font-size: 36px;
-      text-align: center;
-      max-width: 600px;
-      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .quote-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 30px;
+      font-style: italic;
+      font-size: 16px;
     }
 
     @media (max-width: 768px) {
-      body {
+      .dashboard-container {
         flex-direction: column;
       }
+
       .sidebar {
         width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
         border-right: none;
-        border-bottom: 4px solid #ffcc70;
+        border-bottom: 2px solid #f8cdda;
+        justify-content: space-around;
       }
+
+      .sidebar a {
+        margin: 5px;
+        padding: 10px;
+        font-size: 14px;
+        flex: 1;
+        justify-content: center;
+      }
+
       .main {
-        padding: 30px;
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="sidebar" id="adminSidebar">
-    <h2>🔐 Admin Panel</h2>
-    <a href="edit-community.html">📝 Edit Community Info</a>
-    <a href="manage-resources.html">⚙️ Manage Resources</a>
-    <a href="/admin/members">✅ Approve Members</a>
-    <a href="/admin/stats">📊 View Statistics</a>
-  </div>
+  <header>
+    <h1>🌾 Community Admin Dashboard</h1>
+    <div class="admin-tag">Logged in as: <strong>Admin</strong></div>
+  </header>
 
-  <div class="main">
-    <h1>Welcome Admin 👩‍🌾<br>Manage Your Community with Style!</h1>
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <h2>📋 Menu</h2>
+      <a href="edit-community.html">📝 Edit Community</a>
+      <a href="manage-resources.html">⚙️ Manage Resources</a>
+      <a href="members.html">✅ Approve Members</a>
+      <a href="/admin/stats">📊 View Statistics</a>
+    </div>
+
+    <div class="main">
+      <div class="main-content">
+        <h2>Welcome, Admin 👩‍🌾</h2>
+        <p>Manage your farming community efficiently and effectively with the tools provided in this dashboard.</p>
+
+        <div class="quote-box">
+          “The farmer has to be an optimist or he wouldn’t still be a farmer.” — Will Rogers
+        </div>
+      </div>
+    </div>
   </div>
 
 </body>

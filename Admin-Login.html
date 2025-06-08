@@ -3,181 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
+  <title>Admin Login - FarmingShare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Urbanist', sans-serif;
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Nunito', sans-serif;
     }
-
-    body {
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  font-family: 'Urbanist', sans-serif;
-
-  /* Dark textured background with diagonal stripes */
-  background-color: #121212;
-  /* background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.05) 10px,
-      transparent 10px,
-      transparent 20px
-    ); */
-}
-
-    .login-container {
-      background: rgba(255, 255, 255, 0.07);
-      padding: 50px 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      width: 100%;
-      max-width: 400px;
-      color: #fff;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      overflow: hidden;
       position: relative;
     }
-
-    .login-container::before {
-      content: '';
+    /* Floating circles behind the card */
+    .circle {
       position: absolute;
-      top: -20%;
-      left: -20%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
-      z-index: 0;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 10s ease-in-out infinite;
+    }
+    .circle1 {
+      width: 200px; height: 200px;
+      background: #6b8de3;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    .circle2 {
+      width: 300px; height: 300px;
+      background: #f9a826;
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 5s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(15px); }
     }
 
-    h2 {
-      margin-bottom: 30px;
-      font-size: 30px;
-      font-weight: bold;
-      color: #ffffff;
-      text-shadow: 1px 1px 4px #00000050;
-      z-index: 1;
+    .login-card {
       position: relative;
+      background: #fff;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      width: 360px;
+      text-align: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      z-index: 1;
     }
-
-    input[type="text"],
-    input[type="password"] {
+    .login-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      transform: scale(1.05);
+    }
+    .login-card h2 {
+      margin-bottom: 28px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #2c3e50;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 4px rgba(100,100,100,0.1);
+    }
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4a4a4a;
+      font-size: 14px;
+      position: relative;
+      padding-left: 28px;
+    }
+    /* Input container for icon + input */
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .input-group svg {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #7b8ca1;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      transition: fill 0.3s ease;
+    }
+    input[type="text"], input[type="password"] {
       width: 100%;
-      padding: 14px 18px;
-      margin: 14px 0;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
+      padding: 12px 14px 12px 36px;
+      font-size: 15px;
+      border: 1.8px solid #d1d5db;
+      border-radius: 10px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 1px 1px 3px #f1f4f8;
+      color: #444;
+      background-color: #fafafa;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #6b8de3;
+      box-shadow: 0 0 10px 3px rgba(107, 141, 227, 0.4);
       outline: none;
-      transition: all 0.3s ease;
-      z-index: 1;
-      position: relative;
+      background-color: #f0f4ff;
     }
-
-    input::placeholder {
-      color: #e0e0e0;
+    input[type="text"]:focus + svg,
+    input[type="password"]:focus + svg {
+      fill: #4961d1;
     }
-
-    input:focus {
-      background-color: rgba(255, 255, 255, 0.2);
-      border: 1px solid #00ffe0;
-      box-shadow: 0 0 10px #00ffe0;
-    }
-
     button {
       width: 100%;
-      padding: 14px;
-      background: linear-gradient(to right, #00ffe0, #00d4ff);
-      color: #000;
+      padding: 14px 0;
+      background: linear-gradient(45deg, #6b8de3, #304ffe);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
       border: none;
       border-radius: 12px;
-      font-weight: bold;
-      font-size: 17px;
       cursor: pointer;
-      margin-top: 20px;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      z-index: 1;
+      box-shadow: 0 6px 18px rgba(48, 79, 254, 0.7);
+      transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+      letter-spacing: 1px;
       position: relative;
+      overflow: hidden;
     }
-
+    button::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      z-index: 1;
+    }
+    button:hover::before {
+      left: 150%;
+    }
     button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+      background: linear-gradient(45deg, #304ffe, #1e40ff);
+      box-shadow: 0 10px 26px rgba(30, 64, 255, 0.85);
+      transform: scale(1.06);
     }
-
     .error-message {
-      margin-top: 18px;
-      font-size: 14px;
-      color: #ffbdbd;
-      font-weight: 500;
-      z-index: 1;
-      position: relative;
+      color: #ff6b6b;
+      margin-top: 10px;
+      min-height: 20px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-container">
-    <h2>🛡️ Admin Login</h2>
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+
+  <div class="login-card">
+    <h2>Admin Login</h2>
     <form id="adminLoginForm">
-      <input id="username" type="text" name="username" placeholder="Admin Username" required />
-      <input id="password" type="password" name="password" placeholder="Password" required />
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Enter admin username" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.67 0 8 1.34 8 4v3H4v-3c0-2.66 5.33-4 8-4zm0-2a4 4 0 1 0-0.001-8.001A4 4 0 0 0 12 10z"/></svg>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Enter password" required autocomplete="off" />
+        <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-8-4a3 3 0 0 1 6 0v4H10V7z"/></svg>
+      </div>
+
       <button type="submit">Login</button>
+      <div class="error-message" id="errorMsg"></div>
     </form>
-    <div class="error-message" id="error-msg"></div>
   </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const loginForm = document.getElementById('adminLoginForm');
-      const errorMsg = document.getElementById('error-msg');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('adminLoginForm');
 
-      loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
+  if (!loginForm) {
+    console.error("Login form not found!");
+    return;
+  }
 
-        if (!username || !password) {
-          errorMsg.textContent = "Please enter both username and password.";
-          return;
+  loginForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    console.log("Login button clicked!");
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
+
+    fetch('http://localhost:8080/admin/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Login failed");
         }
-
-        fetch('http://localhost:8080/admin/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, password })
-        })
-        .then(res => {
-          if (!res.ok) throw new Error("Login failed");
-          return res.text();
-        })
-        .then(text => {
-          if (text === "User login successful") {
-            sessionStorage.setItem("userRole", "admin");
-            window.location.href = "admin-dashboard.html";
-          } else {
-            errorMsg.textContent = "❌ Invalid credentials. Try again.";
-          }
-        })
-        .catch(() => {
-          errorMsg.textContent = "❌ Server error or invalid login.";
-        });
+        return res.text();
+      })
+      .then(text => {
+        alert(text);
+        if (text === "Admin login successful") {
+          // Optional: store role
+          sessionStorage.setItem("userRole", "admin");
+          window.location.href = "admin-dashboard.html";
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("❌ Invalid login. Please try again.");
       });
-    });
-  </script>
+  });
+});
+</script>
+
 </body>
 </html>

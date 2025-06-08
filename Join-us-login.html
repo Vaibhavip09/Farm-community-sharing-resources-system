@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Register - FarmingShare</title>
+  <title>Login - FarmingShare</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -18,7 +18,7 @@
       background-size: cover;
     }
 
-    .register-container {
+    .login-container {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -30,7 +30,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
 
-    .register-container h2 {
+    .login-container h2 {
       text-align: center;
       font-size: 24px;
       margin-bottom: 24px;
@@ -78,50 +78,43 @@
       background: linear-gradient(to right, #388e3c, #66bb6a);
     }
 
-    .login-link {
+    .register-link {
       text-align: center;
       margin-top: 15px;
       font-size: 13px;
       color: #2f4f2f;
     }
 
-    .login-link a {
+    .register-link a {
       color: #1b5e20;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .login-link a:hover {
+    .register-link a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="register-container">
-    <h2>🌾 Join FarmingShare</h2>
+  <div class="login-container">
+    <h2>🌿 Login to FarmingShare</h2>
     <form>
       <label for="username">Username</label>
-      <input id="username" type="text" placeholder="Your username" required autocomplete="off" />
-
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="Your email address" required autocomplete="off" />
+      <input id="username" type="text" placeholder="Enter your username" required autocomplete="off" />
 
       <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Password" required autocomplete="off" />
+      <input id="password" type="password" placeholder="Enter your password" required autocomplete="off" />
 
-      <label for="confirm-password">Confirm Password</label>
-      <input id="confirm-password" type="password" placeholder="Confirm password" required autocomplete="off" />
+      <button type="submit">Login</button>
 
-      <button type="submit">Register</button>
-
-      <div class="login-link">
-        Already have an account? <a href="Join-us-login.html">Login here</a>
+      <div class="register-link">
+        Don't have an account? <a href="Join-us-register.html">Register here</a>
       </div>
     </form>
   </div>
 
-  <script src="join-us-register.js"></script>
-
+  <script src="join-us-login.js"></script>
 </body>
 </html>

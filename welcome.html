@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+      text-align: center;
+      background-size: 400% 400%;
+      animation: bgMove 15s ease infinite;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .welcome-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .welcome-box h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-box p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      background-color: #ffffff;
+      color: #0078b7;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e6f7ff;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="welcome-box">
+    <h1>👋 Welcome!!!</h1>
+    <p>Thank you for being part of the Community Farming Resource Sharing Network.  
+    We're excited to grow with you! 🌱</p>
+
+    <a href="profile.html" class="btn">Go to Dashboard</a>
+  </div>
+
+</body>
+</html>

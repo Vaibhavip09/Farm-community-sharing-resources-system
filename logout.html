@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Logging out...</title>
+  <script>
+
+    sessionStorage.clear();
+    localStorage.clear();
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 3000);
+  </script>
+</head>
+<body>
+  <h2 style="text-align:center; margin-top:20%;">🔒 Logging out...</h2>
+</body>
+</html>

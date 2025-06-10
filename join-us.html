@@ -2,83 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Become a Member</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join Us - Community Farming</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
     }
 
     body {
-      height: 100vh;
-      background: linear-gradient(135deg, #1d2b64, #f8cdda);
-      background-size: 400% 400%;
-      animation: animateBg 15s ease infinite;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #a8edea, #fed6e3);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff;
+      height: 100vh;
+    }
+
+    form {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 380px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
       text-align: center;
-      padding: 20px;
+      margin-bottom: 25px;
+      color: #00796b;
+      font-size: 24px;
     }
 
-    @keyframes animateBg {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 600;
+      color: #004d40;
+      font-size: 15px;
     }
 
-    .container {
-      max-width: 600px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1px solid #b2dfdb;
+      border-radius: 8px;
+      background-color: #f0fdfc;
+      transition: 0.3s;
+      font-size: 14px;
     }
 
-    .container h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
+    input:focus {
+      border-color: #00796b;
+      outline: none;
+      box-shadow: 0 0 5px #80cbc4;
     }
 
-    .container p {
-      font-size: 18px;
-      margin-bottom: 30px;
-      color: #f0f0f0;
-    }
-
-    .btn {
-      padding: 14px 28px;
-      font-size: 16px;
-      background-color: #f8cdda;
-      color: #1d2b64;
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #00796b;
+      color: white;
       font-weight: bold;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
+      font-size: 16px;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
-    .btn:hover {
-      background-color: #ffb3b3;
-      transform: scale(1.05);
+    button:hover {
+      background-color: #004d40;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>🌱 Become a Member</h1>
-    <p>Join our farming network to access tools, knowledge, and community support.</p>
-    <a href="Join-us-register.html" class="btn">🌾 Join Now</a>
-  </div>
+  <form id="joinForm">
+    <h2>Join Our Farming Network</h2>
+
+    <label for="fullName">👤 Full Name</label>
+    <input type="text" id="fullName" name="fullName" required />
+
+    <label for="email">📧 Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="phone">📞 Phone</label>
+    <input type="tel" id="phone" name="phone" required />
+
+    <button type="submit">🌱 Submit Request</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('joinForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        fullName: form.fullName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        status: "Pending"
+      };
+
+      fetch('http://localhost:8080/join/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(result => {
+        alert('✅ Your join request has been submitted! Status: ' + result.status);
+        form.reset();
+         window.location.href = "join-status.html";
+      })
+      .catch(error => {
+        alert('❌ Error submitting request: ' + error.message);
+      });
+    });
+  </script>
 
 </body>
 </html>

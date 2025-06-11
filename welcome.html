@@ -4,73 +4,135 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welcome</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: radial-gradient(circle at top left, #a18cd1, #fbc2eb);
       height: 100vh;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Montserrat', sans-serif;
-      color: white;
-      text-align: center;
-      background-size: 400% 400%;
-      animation: bgMove 15s ease infinite;
+      overflow: hidden;
+      position: relative;
     }
 
-    @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      animation: float 6s infinite linear;
+      opacity: 0.8;
     }
 
-    .welcome-box {
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .glass-box {
       background: rgba(255, 255, 255, 0.1);
-      padding: 50px;
       border-radius: 20px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      padding: 60px 40px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      color: #fff;
       max-width: 600px;
       width: 90%;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+      z-index: 1;
     }
 
-    .welcome-box h1 {
-      font-size: 32px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .glass-box h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .glass-box .status {
+      font-size: 16px;
+      background-color: #81c784;
+      color: #1b5e20;
+      padding: 8px 20px;
+      border-radius: 20px;
+      display: inline-block;
       margin-bottom: 20px;
     }
 
-    .welcome-box p {
+    .glass-box p {
       font-size: 18px;
       margin-bottom: 30px;
     }
 
     .btn {
-      padding: 12px 24px;
-      background-color: #ffffff;
-      color: #0078b7;
+      background: #fff;
+      color: #9c27b0;
+      padding: 12px 28px;
       font-weight: bold;
-      border: none;
-      border-radius: 8px;
       text-decoration: none;
-      transition: 0.3s ease;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: all 0.3s ease;
     }
 
     .btn:hover {
-      background-color: #e6f7ff;
-      transform: scale(1.05);
+      background: #f3e5f5;
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <div class="welcome-box">
-    <h1>👋 Welcome!!!</h1>
-    <p>Thank you for being part of the Community Farming Resource Sharing Network.  
-    We're excited to grow with you! 🌱</p>
+  <!-- Sparkle Effects -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('sparkle');
+      dot.style.left = Math.random() * 100 + 'vw';
+      dot.style.animationDuration = (Math.random() * 5 + 3) + 's';
+      document.body.appendChild(dot);
+    }
+  </script>
 
+  <!-- Confetti JS (from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    window.onload = function () {
+      confetti({
+        particleCount: 150,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+    };
+  </script>
+
+  <div class="glass-box">
+    <div class="status">✅ Status: Approved</div>
+    <h1>Welcome, Farmer!</h1>
+    <p>You’re now part of a powerful community of shared farming resources. Let’s grow, share, and thrive together! 🌾</p>
     <a href="profile.html" class="btn">Go to Dashboard</a>
   </div>
 

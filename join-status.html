@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Join Request Status - Wow Look</title>
+  <title>Join Request Status</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     /* Reset and basics */
@@ -186,51 +186,59 @@
   </div>
 
   <script>
-    function formatStatus(status) {
-      const s = status?.toLowerCase();
-      if (s === 'approved') return { icon: '✅', cls: 'approved', text: 'Approved' };
-      if (s === 'rejected') return { icon: '❌', cls: 'rejected', text: 'Rejected' };
-      return { icon: '⏳', cls: 'pending', text: 'Pending' };
+    function format(st) {
+  st = st.toLowerCase();
+  if (st === 'approved') {
+    // Auto redirect handled in checkStatus
+    return {
+      icon: '✅',
+      cls: 'approved',
+      text: 'Approved',
+      redirect: true
+    };
+  }
+  if (st === 'rejected') return { icon: '❌', cls: 'rejected', text: 'Rejected' };
+  return { icon: '⏳', cls: 'pending', text: 'Pending' };
+}
+
+async function checkStatus() {
+  const e = document.getElementById('email').value.trim();
+  const res = document.getElementById('result'), err = document.getElementById('error');
+  res.innerHTML = ''; err.textContent = '';
+
+  if (!e) {
+    err.textContent = 'Please enter your email.';
+    return;
+  }
+
+  try {
+    const data = await fetch('http://localhost:8080/join/all').then(r => r.json());
+    const u = data.find(o => o.email === e);
+    if (!u) {
+      err.textContent = 'No request found.';
+      return;
+    }
+    const s = format(u.status);
+
+    // If status is approved, redirect
+    if (s.redirect) {
+      window.location.href = "welcome.html";
+      return;
     }
 
-    async function checkStatus() {
-      const emailInput = document.getElementById('email');
-      const result = document.getElementById('result');
-      const error = document.getElementById('error');
-      const email = emailInput.value.trim();
-      result.innerHTML = '';
-      error.textContent = '';
+    res.innerHTML = `
+      <div class="status-card ${s.cls}">
+        <div class="status-icon">${s.icon}</div>
+        <div class="status-info">
+          <p><span class="label">Name:</span><span class="value">${u.fullName}</span></p>
+          <p><span class="label">Status:</span><span class="value">${s.text}</span></p>
+        </div>
+      </div>`;
+  } catch {
+    err.textContent = 'Network error. Please try later.';
+  }
+}
 
-      if (!email) {
-        error.textContent = 'Please enter your email.';
-        emailInput.focus();
-        return;
-      }
-
-      try {
-        const response = await fetch('http://localhost:8080/join/all');
-        const data = await response.json();
-
-        const user = data.find(entry => entry.email.toLowerCase() === email.toLowerCase());
-        if (!user) {
-          error.textContent = 'No join request found for this email.';
-          return;
-        }
-
-        const s = formatStatus(user.status);
-        result.innerHTML = `
-          <div class="status-card ${s.cls}">
-            <div class="status-icon" aria-hidden="true">${s.icon}</div>
-            <div class="status-info">
-              <p><span class="label">Name:</span> ${user.fullName}</p>
-              <p><span class="label">Status:</span> ${s.text}</p>
-            </div>
-          </div>
-        `;
-      } catch (e) {
-        error.textContent = 'Network error. Please try again later.';
-      }
-    }
   </script>
 
 </body>
